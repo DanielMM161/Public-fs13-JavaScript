@@ -4,12 +4,12 @@ from 0 to 100
  */
 
 const printNum = () => {
-    for (var i = 0; i <= 100; i++) {
-        setTimeout(() => console.log(i), 1000)
+    for (var i = 0; i <= 100; i++) {        
+        console.log(i)         
     }
 }
 
-printNum()
+//printNum()
 
 /*
 2. Given the array below:
@@ -24,7 +24,10 @@ possibility.
 
 let myArr = ['12-24-2014', '09-2022-23', '12-30-2021', '08-02-2021', '07-15-2018', '2019-12-14', '2022-14-12']
 const fixDate = (array) => {
-    /* provide your code here */
+    return array.map(date => {            
+        const sordData = date.split('-').sort((a, b) => a - b)      
+        return [sordData[0], sordData[1], sordData[2]].join('-')
+    });
 }
 let newArr = fixDate(myArr)
 console.log(newArr)
@@ -37,9 +40,15 @@ Expected result in the console: 11 days - 13 hours - 38 minutes - 20 seconds
 const dateFrom = new Date(500000)
 const dateTo = new Date(1000000000)
 const counter = (from, to) => {
-    /* provide your code here */
+    const difference = (a, b) => Math.abs(a - b) 
+    const days = difference(dateFrom.getDate(), dateTo.getDate()) + " Days - "
+    const hours = difference(dateFrom.getHours(), dateTo.getHours()) + " Hours - "
+    const minutes = difference(dateFrom.getMinutes(), dateTo.getMinutes()) + " Minutes - "
+    const seconds = difference(dateFrom.getSeconds(), dateTo.getSeconds()) + " Seconds"
+
+    return days + hours + minutes + seconds
 }
-const timer = counter()
+const timer = counter(dateFrom, dateTo)
 console.log(timer)
 
 /* 
@@ -49,15 +58,21 @@ console.log(timer)
 The data fetched from url should be displayed in index.html.
 */
 
-const getAllCountries = () => {
-    /* provide your code here */
+const getAllCountries = async () => {
+    const fetchCountries = async () => {        
+        return await fetch('https://restcountries.com/v2/all')
+        .then(response => response.json())
+    }
+    const countries = await fetchCountries()
+  
+  //  console.log(countries.sort(name => name)
 }
 
 const getSingleCountry = () => {
     /* provide your code here */
 }
 
-getAllCountries()
+//getAllCountries()
 
 /*
 5. Provide logic for function generateNewFolderName, which receive an array as argument. Everytime the function gets called,
@@ -75,7 +90,7 @@ generateNewFolderName(folder)
 generateNewFolderName(folder)
 generateNewFolderName(folder)
 generateNewFolderName(folder)
-console.log(folder); //expect to see ['New Folder', 'New Folder (1)', 'New Folder (2)', 'New Folder (3)']
+//console.log(folder); //expect to see ['New Folder', 'New Folder (1)', 'New Folder (2)', 'New Folder (3)']
 
 /* 
 6. Complete class Book:
