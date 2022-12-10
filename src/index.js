@@ -1,3 +1,7 @@
+function printExercise(exercise) {
+    console.log(`--- Exercise ${exercise} ---\n`)
+}
+
 /*
 1. Fix the bugs in the codes below, to make the console print out different numbers
 from 0 to 100
@@ -7,9 +11,11 @@ const printNum = () => {
     for (var i = 0; i <= 100; i++) {        
         console.log(i)         
     }
+    console.log("\n")
 }
 
-//printNum()
+printExercise(1)
+printNum()
 
 /*
 2. Given the array below:
@@ -30,7 +36,10 @@ const fixDate = (array) => {
     });
 }
 let newArr = fixDate(myArr)
-//console.log(newArr)
+
+printExercise(2)
+console.log(newArr)
+console.log("\n")
 
 /*
 3. Counter function
@@ -49,7 +58,9 @@ const counter = (from, to) => {
     return days + hours + minutes + seconds
 }
 const timer = counter(dateFrom, dateTo)
-//console.log(timer)
+printExercise(3)
+console.log(timer)
+console.log("\n")
 
 /* 
 4. Check the url and read documentation: https://restcountries.com
@@ -150,6 +161,7 @@ const handleSearch = async (fetchData) => {
     }
 
     subtitle.innerHTML = `Total ${countries.length} results`
+    countries.sort((a, b) => a.name.common.localeCompare(b.name.common))
     countries.forEach(element => {
         grid.append(createEelement(element))
     })
@@ -173,8 +185,17 @@ If folder 'New Folder' exists, it should add 'New Folder (1)' to array. If 'New 
 to array, and so on.
 */
 
+
 const generateNewFolderName = (existingFolders) => {
-    /*  provide your code here */
+    let folderName = 'New Folder'
+    const existFolder = existingFolders.find(element =>  element == folderName)
+    if(!existFolder) {
+        existingFolders.push(folderName)
+    } else {
+        const totalFolders = existingFolders.length
+        folderName = `New Folder (${totalFolders})`
+        existingFolders.push(folderName)
+    }
 }
 
 let folder = []
@@ -182,7 +203,10 @@ generateNewFolderName(folder)
 generateNewFolderName(folder)
 generateNewFolderName(folder)
 generateNewFolderName(folder)
-//console.log(folder); //expect to see ['New Folder', 'New Folder (1)', 'New Folder (2)', 'New Folder (3)']
+
+printExercise(5)
+console.log(folder); //expect to see ['New Folder', 'New Folder (1)', 'New Folder (2)', 'New Folder (3)']
+console.log("\n")
 
 /* 
 6. Complete class Book:
@@ -198,14 +222,93 @@ Complete class TaxableBook:
 cost 14, profit 0.3 , tax 24% => expected price is 30.43
 */
 class Book {
+
     _title
+    _cost
+    _profit
+    _price
+
     constructor(title, cost, profit) {
+        if(title.trim() == "" || typeof title != 'string') {
+            throw new Error ('The Data title must be a string and no empty')
+        }
+        if(cost < 0 || typeof cost != 'number') {
+            throw new Error ('The Data cost must be a positive number')
+        }
+        if(profit <= 0 && profit > 0.5) {
+            throw new Error ('The Data profit must be a positive number and cannot be greater than than 0.5')
+        }
+
+        this._title = title
+        this._cost = cost
+        this._profit = profit        
+        this._price = this._cost / (1 - this._profit) 
+    }
+
+    get title() {
+        return this._title
+    }
+
+    get cost() {
+        return this._cost
+    }
+
+    get profit() {        
+        return this._profit
+    }
+
+    get price() {
+        return this._price
+    }
+
+    increasePrice(value) {
+        this._price += value
+    }
+
+    decreasePrice(value) {
+        this._price -= value
+    }
+
+    calculatedProfit() {
+        return this._price - this._cost
     }
 }
 
-class TaxableBook {
-    /* provide your code here */
+class TaxableBook extends Book {
+    
+    _taxRate
+ 
+    constructor(title, cost, profit, taxRate) {
+        super(title, cost, profit)
+        this._taxRate = taxRate
+    }
+
+    get taxRate() {
+        return this._taxRate
+    }
+
+    calculatePriceWithTax() {
+        return this._price + (this._price * this._taxRate / 100 )
+    }
 }
 
-const book1 = new Book("The Power of Habits", 14, 0.3)
-const book2 = new TaxableBook("The Power of Habits", 14, 0.3, 24)
+const book = new Book("The Power of Habits", 14, 0.3)
+const taxableBook = new TaxableBook("The Power of Habits", 14, 0.3, 24)
+
+printExercise(6)
+console.log(`Book Without Taxes`);
+console.log(`   - Book title: ${book.title}`);
+console.log(`   - Book Price: ${book.price}`);
+console.log(`   - Book Cost: ${book.cost}`);
+console.log(`   - Book Profit: ${book.profit}`);
+console.log(`   - Profit Calculated: ${book.calculatedProfit()}`);
+
+console.log(' ');
+console.log('------------------------------------------');
+console.log(' ');
+
+console.log(`Book With Taxes`);
+console.log(`   - Book title: ${taxableBook.title}`);
+console.log(`   - Book Price: ${taxableBook.price}`);
+console.log(`   - Book Taxes: ${taxableBook.taxRate} %`);
+console.log(`   - Price With Taxes: ${taxableBook.calculatePriceWithTax()}`);
