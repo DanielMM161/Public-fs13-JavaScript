@@ -1,0 +1,25 @@
+@use "components/form";
+@use "components/results";
+@use "components/spinner";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+  padding: 90px 110px;
+}
+
+.flex {
+  display: flex;
+}
+
+.none {
+  display: none;
+}
