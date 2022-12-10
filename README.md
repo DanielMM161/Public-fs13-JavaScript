@@ -31,5 +31,5 @@
                     _spinner.scss
 ```
 ## Getting Started
-Take a look on [Netlify](https://animated-gecko-39efcd.netlify.app/).
-Clone the repository from github: [Here](https://github.com/DanielMM161/fs13-JavaScript/archive/refs/heads/main.zip) <br>
+Take a look on [Netlify](https://animated-gecko-39efcd.netlify.app/).<br>
+Clone the repository from github: [Here](https://github.com/DanielMM161/fs13-JavaScript/archive/refs/heads/main.zip) 
