@@ -7,9 +7,14 @@ function printExercise(exercise) {
 from 0 to 100
  */
 
-const printNum = () => {
-    for (var i = 0; i <= 100; i++) {        
-        console.log(i)         
+const printNum = async () => {
+    for (var i = 0; i <= 100; i++) {
+        await new Promise(res => {
+            setTimeout(() => {
+                res( console.log(i) )
+            }, 1000)
+            
+        })            
     }
     console.log("\n")
 }
@@ -115,11 +120,11 @@ const createEelement = (element) => {
 
 
     const divSecond = document.createElement('div')
-        const capitaltH2 = document.createElement('h2')
-        capitaltH2.innerHTML = 'Capital:'
-        const capitaltH3 = document.createElement('h3')
-        capitaltH3.innerHTML = element.capital
-        divSecond.append(capitaltH2, capitaltH3);
+    const capitaltH2 = document.createElement('h2')
+    capitaltH2.innerHTML = 'Capital:'
+    const capitaltH3 = document.createElement('h3')
+    capitaltH3.innerHTML = element.capital
+    divSecond.append(capitaltH2, capitaltH3);
 
     const populationH2 = document.createElement('h2')
     populationH2.innerHTML = `Population: ${element.population}`
